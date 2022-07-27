@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Text, Box, Flex, Button } from '@chakra-ui/react';
 import { baseUrl, fetchApi } from '../utilities/fetchApi';
+import Property from '../components/Property';
 
 // reusing components with the use of chakra UI
 const Banner = ({
@@ -37,35 +38,38 @@ const Banner = ({
 );
 
 export default function Home({ propertiesForSale, propertiesForRent }) {
-	console.log(propertiesForSale);
-	console.log(propertiesForRent);
-
 	return (
 		<Box>
 			<Banner
-				purpose="Rent a Home"
+				purpose="RENT A HOME"
 				title1="Rental Homes for"
-				title2="everyone"
-				desc1="Expore Apartments, Villas, Homes"
-				desc2="and More!"
+				title2="Everyone"
+				desc1=" Explore from Apartments, builder floors, villas"
+				desc2="and more"
 				buttonText="Explore Renting"
 				linkName="/search?purpose=for-rent"
 				imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/145426814/33973352624c48628e41f2ec460faba4"
-			></Banner>
-
-			{/* fetching the properties and then managing them */}
-			<Flex flexWrap="wrap"></Flex>
-
+			/>
+			<Flex flexWrap="wrap">
+				{propertiesForRent.map((property) => (
+					<Property property={property} key={property.id} />
+				))}
+			</Flex>
 			<Banner
-				purpose="Buy a Home"
-				title1="Find and Buy or Own your"
+				purpose="BUY A HOME"
+				title1=" Find, Buy & Own Your"
 				title2="Dream Home"
-				desc1="Expore Apartments, Villas, Homes"
-				desc2="and More!"
+				desc1=" Explore from Apartments, land, builder floors,"
+				desc2=" villas and more"
 				buttonText="Explore Buying"
 				linkName="/search?purpose=for-sale"
 				imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008"
-			></Banner>
+			/>
+			<Flex flexWrap="wrap">
+				{propertiesForSale.map((property) => (
+					<Property property={property} key={property.id} />
+				))}
+			</Flex>
 		</Box>
 	);
 }
